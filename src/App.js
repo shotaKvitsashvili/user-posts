@@ -9,9 +9,15 @@ function App() {
 
   const [users, setusers] = useState([]);
   const userId = [];
+  const [userPostId, setUserPostId] = useState(0);
 
   const getUsers = (user) => {
     setusers(user);
+  }
+
+  const getUserPostsId = (postId) => {
+    setUserPostId(postId + 1);
+    console.log(userPostId);
   }
 
   users.map(e => {
@@ -22,7 +28,6 @@ function App() {
   //   return e.id === 1;
   // });
 
-  console.log(users);
 
   return (
     <div className="container-fluid">
@@ -30,11 +35,11 @@ function App() {
 
       <div className="row">
         <div className="col-5">
-          <Userposts />
+          <Userposts getUserPostsId={getUserPostsId} />
         </div>
 
         <div className="col-7">
-          <UserComments />
+          <UserComments userPostId={userPostId} />
           <AddComment />
         </div>
       </div>

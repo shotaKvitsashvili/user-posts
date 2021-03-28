@@ -10,7 +10,7 @@ const CommentLoader = () => (
     </ContentLoader>
 );
 
-export default function UserComments() {
+export default function UserComments(props) {
 
     const [userComments, setUserComments] = useState([])
 
@@ -24,8 +24,10 @@ export default function UserComments() {
         getUsersComments().then(userComments => {
             setUserComments(userComments)
         });
+
     }, []);
 
+    const displayUserComments = userComments.filter(e => e.postId === props.userPostId);
 
     if (userComments.length > 0) {
         return (
@@ -35,9 +37,10 @@ export default function UserComments() {
                 </div>
 
                 {
-                    userComments.map((val, ind) => {
+                    displayUserComments.map((val, ind) => {
                         return <div key={ind}>
                             <h2>Postid: {val.postId}</h2>
+                            <h2>Id: {val.id}</h2>
                             <div className="px-2 py-1">
                                 <span>User Name: {val.name}</span>
                             </div>
