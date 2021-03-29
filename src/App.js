@@ -3,7 +3,6 @@ import { useState } from 'react';
 import Users from './users/Users';
 import Userposts from './user posts/UserPosts';
 import UserComments from './user comments/UserComments';
-import AddComment from './add comment/AddComment';
 
 function App() {
 
@@ -40,7 +39,6 @@ function App() {
 
         <div className="col-7">
           <UserComments userPostId={userPostId} />
-          <AddComment />
         </div>
       </div>
     </div>

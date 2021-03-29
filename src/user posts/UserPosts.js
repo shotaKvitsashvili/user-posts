@@ -54,6 +54,10 @@ export default function Userposts(props) {
                     {
                         userPosts.map((val, ind) => {
                             return <div key={ind}>
+                                 <div className="p-2">
+                                    <h3 className="">Post {val.id}</h3>
+                                </div>
+
                                 <div className="p-2">
                                     <span className="posts__title">Title: {val.title}</span>
                                 </div>
