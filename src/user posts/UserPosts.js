@@ -6,7 +6,7 @@ import { Scrollbars } from 'react-custom-scrollbars';
 import './styles.css';
 
 const PostsLoader = () => (
-    <div>
+    <div className="d-flex flex-column">
         <ContentLoader>
             <rect x="0" y="17" rx="4" ry="4" width="300" height="13" />
             <rect x="0" y="47" rx="4" ry="4" width="500" height="63" />
@@ -34,12 +34,13 @@ export default function Userposts(props) {
             setUserPosts(userpost)
         });
 
-    }, []);
+        props.getUserPostsId(userPostId);
 
-    console.log(userPostId);
+    }, [props, userPostId]);
+
+    // console.log(userPostId);
     
     if (userPosts.length > 0) {
-        props.getUserPostsId(userPostId);
         return (
             <Scrollbars
                 renderThumbVertical={props => <div {...props} className="thumb-vertical" />}

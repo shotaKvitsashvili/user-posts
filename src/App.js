@@ -1,36 +1,20 @@
 import { useState } from 'react';
 
-import Users from './users/Users';
+// import Users from './users/Users';
 import Userposts from './user posts/UserPosts';
 import UserComments from './user comments/UserComments';
 
 function App() {
-
-  const [users, setusers] = useState([]);
-  const userId = [];
+  
   const [userPostId, setUserPostId] = useState(0);
 
-  const getUsers = (user) => {
-    setusers(user);
-  }
-
+  // get post id to pass to comments component for displaying the correct one
   const getUserPostsId = (postId) => {
     setUserPostId(postId + 1);
-    console.log(userPostId);
   }
-
-  users.map(e => {
-    return userId.push(e.id);
-  });
-
-  // const filteredUserName = users.filter(e => {
-  //   return e.id === 1;
-  // });
-
 
   return (
     <div className="container-fluid">
-      <Users getUsers={getUsers} />
 
       <div className="row">
         <div className="col-5">

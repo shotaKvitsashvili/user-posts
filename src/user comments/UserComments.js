@@ -17,7 +17,13 @@ export default function UserComments(props) {
 
     const [userComments, setUserComments] = useState([]);
     const [userReply, setUserReply] = useState([]);
+
+    // Setting comment id to use for reply later
     const [id, setId] = useState(0);
+
+    // Let know the component when the reply should be added
+    const [shouldComponentAdd, setshouldComponentAdd] = useState(false);
+
 
     useEffect(() => {
         async function getUsersComments() {
@@ -28,16 +34,25 @@ export default function UserComments(props) {
 
         getUsersComments().then(userComments => {
             setUserComments(userComments)
-        });
-
+        });        
     }, []);
 
+    // Displaying correct comment for each post
     const displayUserComments = userComments.filter(e => e.postId === props.userPostId);
-    let test = displayUserComments.find(e => e.id === id);
-    const filterReply = userReply.filter(e => e);
-    // let id = 0;
-    // test.reply = filterReply;
-    console.log(test);
+
+    // Selecting a comment to add reply inside
+    let addReplyInside = displayUserComments.find(e => e.id === id);
+
+    if (shouldComponentAdd) {
+        if (addReplyInside !== null || addReplyInside !== undefined) {
+            // setUserReply([])
+            addReplyInside.reply = userReply.filter(e => e);
+        }
+
+        setshouldComponentAdd(false);
+    }
+
+    console.log(displayUserComments);
 
 
     if (userComments.length > 0) {
@@ -68,15 +83,15 @@ export default function UserComments(props) {
                                     {val.body}
                                 </div>
 
-                                <div className={filterReply.length ? 'd-block py-2 px-5 comment__reply' : 'd-none'}>
+                                <div className={val.reply === undefined ? 'd-none' : 'd-block py-2 px-5 comment__reply'}>
                                     <div>
                                         {
-                                            ind === id ? filterReply.map((v, i) => {
-                                                return <span key={i}>
+                                            val.reply === undefined ? '' : val.reply.map((v, i) => {
+                                                return <div key={i}>
                                                     {v}
                                                     <br />
-                                                </span>
-                                            }) : null
+                                                </div>
+                                            })
                                         }
                                     </div>
                                 </div>
@@ -89,11 +104,13 @@ export default function UserComments(props) {
                                             onKeyDown={
                                                 (event) => {
                                                     if (event.keyCode === 13) {
+                                                        val.reply = [];
                                                         setUserReply(
                                                             [...userReply, event.target.value]
                                                         )
                                                         event.target.value = '';
-                                                        setId(ind + 1);
+                                                        setId(val.id);
+                                                        setshouldComponentAdd(true);
                                                     }
                                                 }
                                             } />
